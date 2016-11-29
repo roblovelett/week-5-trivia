@@ -75,26 +75,21 @@ $(document).ready(function() {
         
     };
 
-    function f_choice() {
-        var compare_choice = $(this).attr('id');
+    function f_choice(event) {
+        var compare_choice = event.target.id; //get id from click event
+        var match = false; //init match state
         console.log(
-            "correct_choices: ", o_game.array.correct_choices,
+            "correct_choices: ", o_game.array.correct_choices[0],
             "compared_choice: ", compare_choice
         );
-
         for (i = 1; i <= o_game.counter.questions; i++) {
             if (compare_choice === o_game.array.correct_choices[i]) {
-                console.log(
-                    "correct_choice: ", o_game.array.correct_choices[0],
-                    "compare_choice: ", compare_choice
-                );
-            } else {
-                console.log(
-                    "correct_choice: ", o_game.array.correct_choices[0],
-                    "compare_choice: ", compare_choice
-                );
-                console.log("WRONG!");
+                match = true;
             };
+        };
+
+        if (match) { 
+            console.log("MATCH");
         };
 
     };
