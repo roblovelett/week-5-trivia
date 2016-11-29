@@ -69,20 +69,34 @@ $(document).ready(function() {
 
         };
 
-        o_game.string.choice_selected = ""; //init choice selected string
+        if (o_game.flag.game) {            
+            $("input[class=choice]").click(f_choice);
+        };
+        
+    };
 
-        if (o_game.flag.game) {
-            for (i = 1; i <= o_game.counter.questions; i++) {
-                $("input[name='question_" + f_add_zero(i) + "_choice").click(f_choice(event.target.id));
+    function f_choice() {
+        var compare_choice = $(this).attr('id');
+        console.log(
+            "correct_choices: ", o_game.array.correct_choices,
+            "compared_choice: ", compare_choice
+        );
+
+        for (i = 1; i <= o_game.counter.questions; i++) {
+            if (compare_choice === o_game.array.correct_choices[i]) {
+                console.log(
+                    "correct_choice: ", o_game.array.correct_choices[0],
+                    "compare_choice: ", compare_choice
+                );
+            } else {
+                console.log(
+                    "correct_choice: ", o_game.array.correct_choices[0],
+                    "compare_choice: ", compare_choice
+                );
+                console.log("WRONG!");
             };
         };
 
-    };
-
-    function f_choice(compare_choice) {
-
-        console.log("compare_choice: " + compare_choice);
-    
     };
 
     function f_question(question, choices) {
