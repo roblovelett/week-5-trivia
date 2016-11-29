@@ -33,8 +33,11 @@ $(document).ready(function() {
 
             //init & output questions/answers
             o_game = { //game object
-                array: {
-                    correct_choices: [] }, //init array of correct choices
+                array: { 
+                    string: {
+                        correct_choices: [] }, //init array of correct choices
+                    flag: {
+                        correct_choices: [] } }, //init array of flags for correct choices 
                 string: {
                     timer_text: "Time Remaining: ",
                     seconds_text: "Seconds",
@@ -44,8 +47,7 @@ $(document).ready(function() {
                     unanswered_text: "Unanswered: " 
                 },
                 flag: {      
-                    game_over_screen: false, //init game over screen flag
-                    correct_answer: false }, //init correct answer flag
+                    game_over_screen: false }, //init game_over_screen flag
                 counter: {
                     correct: 0, //init correct answer counter
                     incorrect: 0, //init incorrect answer counter
@@ -80,18 +82,18 @@ $(document).ready(function() {
         var compare_choice = event.target.id; //get id from click event
         var match = false; //init match state
         
-        for (i = 0; i < o_game.counter.questions; i++) {
-            if (compare_choice === o_game.array.correct_choices[i]) {
-                match = true;
-            };
+        console.log(
+            "compare_choice: " + compare_choice +
+            " correct_choices_array: " + o_game.array.string.correct_choices 
+        )
+        for (i = 0; i < o_game.counter.questions; i++) { //check if match/correct choice
+            if (compare_choice === o_game.array.string.correct_choices[i]) { //if choice matches an entry in correct choices array
+                o_game.array.flag.correct_choices[i] = true; //set global array of flag
+                
+                console.log("RIGHT!" + o_game.array.flag.correct_choices[i]);
+                break;
+            } else { console.log("WRONG"); break; }
         };
-
-        if (match) { 
-            console.log("MATCH");
-        } else {
-            console.log("WRONG");
-        };
-
     };
 
     function f_question(question, choices) {
@@ -105,7 +107,8 @@ $(document).ready(function() {
         var choices_num = choice_nums.length; //set # of choices to be the length of choice.string object
         var correct_num = f_add_zero(choices.flag); //get key # of correct choice, if < 10 add 0 to front
         var correct_choice = question_num + "_choice_" + correct_num; //make string to compare correct choice: question_##_choice_##
-        o_game.array.correct_choices.push(correct_choice); //push correct choice into array
+        o_game.array.string.correct_choices.push(correct_choice); //push correct choice into array
+        o_game.array.flag.correct_choices.push(false); //push default false flag for each question
 
         $("main").append(f_build_html("div", { id: question_num }, f_build_html("p", '', question))); //create question div with question text in paragraph
         $("div[id=" + question_num + "]").append(f_build_html("form", { id: "form_" + question_num }, "")); //create form for choices
