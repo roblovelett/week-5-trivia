@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Trivia Game!</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/lodash/4.16.3/lodash.min.js"></script>
   </head>
   <body>
     <header></header>    
