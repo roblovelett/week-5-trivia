@@ -64,8 +64,8 @@ $(document).ready(function() {
             f_question("Question 07?", { string: { 01: "Fooooooo", 02: "Baaaaaaar", 03: "Booooooo", 04: "Faaaaaar" }, flag: 02 } );
             f_question("Question 08?", { string: { 01: "Foooooooo", 02: "Baaaaaaaar", 03: "Booooooo", 04: "Faaaaaaaar" }, flag: 01 } );
 
-            o_game.flag.game_init = false;
-            o_game.flag.game = true;
+            o_game.flag.game_init = false; //end game initialization
+            o_game.flag.game = true; //start game state
 
         };
 
@@ -76,13 +76,11 @@ $(document).ready(function() {
     };
 
     function f_choice(event) {
+
         var compare_choice = event.target.id; //get id from click event
         var match = false; //init match state
-        console.log(
-            "correct_choices: ", o_game.array.correct_choices[0],
-            "compared_choice: ", compare_choice
-        );
-        for (i = 1; i <= o_game.counter.questions; i++) {
+        
+        for (i = 0; i < o_game.counter.questions; i++) {
             if (compare_choice === o_game.array.correct_choices[i]) {
                 match = true;
             };
@@ -90,6 +88,8 @@ $(document).ready(function() {
 
         if (match) { 
             console.log("MATCH");
+        } else {
+            console.log("WRONG");
         };
 
     };
